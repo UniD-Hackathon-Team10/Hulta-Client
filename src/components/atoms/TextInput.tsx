@@ -1,6 +1,11 @@
 import { colors } from "@constants/colors";
 import styled from "@emotion/styled";
-import { CSSProperties, DetailedHTMLProps, InputHTMLAttributes, ReactElement } from "react";
+import {
+  CSSProperties,
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  ReactElement,
+} from "react";
 
 interface TextInputProps {
   wrapperStyle?: CSSProperties;
@@ -15,26 +20,35 @@ export default function TextInput({
   error,
   endAdornment,
   ...rest
-}: TextInputProps & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) {
+}: TextInputProps &
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) {
   return (
-    <div style={{ width: "100%" }}>
+    <Wrapper>
       <Container style={wrapperStyle}>
         <Input style={inputStyle} {...rest} />
         {endAdornment && endAdornment}
       </Container>
       {error && <ErrorText>{error}</ErrorText>}
-    </div>
+    </Wrapper>
   );
 }
 
+const Wrapper = styled.div`
+  width: 100%;
+  height: 65px;
+  background-color: white;
+`;
+
 const Container = styled.div`
   width: 100%;
-  border-radius: 30px;
+  border-radius: 25px;
   border: 3px solid ${colors.primary};
   overflow: hidden;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 4px 16px;
+  background-color: white;
 `;
 
 const Input = styled.input`

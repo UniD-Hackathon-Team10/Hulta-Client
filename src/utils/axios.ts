@@ -21,14 +21,21 @@ axiosInstance.interceptors.response.use(
     if (error.response.data?.error && error.response.data.error.message) {
       //5초 동안 오는 응답에 대해서 동일한 응답이면 하나만 표시한다.
       toast.error(`${error.response.data.error.message}`, {
-        toastId: `${error.response.data.error.message}${Math.ceil(new Date().getTime() / 2000)}`,
+        toastId: `${error.response.data.error.message}${Math.ceil(
+          new Date().getTime() / 2000
+        )}`,
       });
     } else {
-      toast.error(`Error Code : ${error.code} Error Message : ${error.message}`, {
-        toastId: `${error.code}${Math.ceil(new Date().getTime() / 2000)}`,
-      });
+      toast.error(
+        `Error Code : ${error.code} Error Message : ${error.message}`,
+        {
+          toastId: `${error.code}${Math.ceil(new Date().getTime() / 2000)}`,
+        }
+      );
     }
-    return Promise.reject((error.response && error.response.data) || "Something went wrong");
+    return Promise.reject(
+      (error.response && error.response.data) || "Something went wrong"
+    );
   }
 );
 

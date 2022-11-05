@@ -1,6 +1,8 @@
 import Card from "@components/Card";
+import CategorySelector from "@components/CategorySelector";
+import { BOOK_CATEGORY } from "@constants/AppConstant";
 import styled from "@emotion/styled";
-import { colors } from "src/constants/colors";
+import { useState } from "react";
 
 interface HomeProps {}
 
@@ -12,8 +14,17 @@ const Temp = Array(50).map((_, i) => ({
 }));
 
 const Home = ({}: HomeProps) => {
+  const [category, setCategory] = useState<{ label: string; value: any }>(
+    BOOK_CATEGORY[0]
+  );
+
   return (
     <Container>
+      <CategorySelector
+        value={category}
+        setValue={setCategory}
+        options={BOOK_CATEGORY}
+      />
       <DataContainer>
         {Temp.map((result) => (
           <Card
@@ -30,10 +41,18 @@ const Home = ({}: HomeProps) => {
 
 export default Home;
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const DataContainer = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: flex-start;
-  flex: 1;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  /* padding-bottom: 7rem; */
 `;

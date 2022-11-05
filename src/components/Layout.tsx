@@ -19,8 +19,7 @@ const Layout = ({ children }: Props) => {
 
 const Container = styled.div`
   /* position: relative; */
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
   max-width: 450px;
   margin: auto;
   padding-top: 4rem;
