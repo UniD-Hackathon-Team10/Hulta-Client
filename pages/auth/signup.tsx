@@ -5,16 +5,14 @@ import { useFormik } from "formik";
 import AuthLayout from "@components/AuthLayout";
 import * as Yup from "yup";
 import Logo from "@components/Logo";
+import { useRouter } from "next/router";
 
 type Props = {};
 
 const Signup = (props: Props) => {
-  const [signUpData, setSignUpData] = useState({
-    id: "",
-    password: "",
-  });
+  const router = useRouter();
 
-  const { values, errors, handleSubmit, handleChange } = useFormik({
+  const { values, errors, handleSubmit, handleChange, resetForm } = useFormik({
     initialValues: {
       nickname: "",
       id: "",
@@ -30,14 +28,30 @@ const Signup = (props: Props) => {
     validate: (value) => {
       const errors = {} as { rePassword: string };
       if (value.password) {
-        value.password !== value.rePassword;
-        errors.rePassword = "비밀번호가 일치하지 않습니다.";
+        if (value.password !== value.rePassword) {
+          errors.rePassword = "비밀번호가 일치하지 않습니다.";
+        }
       }
       return errors;
     },
-    onSubmit: async () => {
-      // TODO API 연동
+    onSubmit: async (values) => {
+      const userData = localStorage.getItem("userData");
+      const data = !userData ? [] : JSON.parse(userData);
+      localStorage.setItem(
+        "userData",
+        JSON.stringify([
+          ...data,
+          {
+            userId: values.id,
+            nickname: values.nickname,
+            password: values.password,
+            createdAt: new Date().toLocaleDateString(),
+          },
+        ])
+      );
+      resetForm();
       console.log("회원가입");
+      router.push("/auth/login");
     },
   });
 

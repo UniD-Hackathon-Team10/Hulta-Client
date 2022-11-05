@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
-import React, { ReactNode } from "react";
+import { useAppSelector } from "@store/configureStore";
+import { useRouter } from "next/router";
+import React, { ReactNode, useEffect } from "react";
 import NavBar from "./GNB";
 import Header from "./Header";
 
@@ -8,6 +10,16 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
+  const userInfo = useAppSelector((state) => state.user.userInfo);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!userInfo) {
+      router.push("/auth/login");
+    }
+  });
+
   return (
     <Container>
       <Header />
@@ -19,8 +31,7 @@ const Layout = ({ children }: Props) => {
 
 const Container = styled.div`
   /* position: relative; */
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
   max-width: 450px;
   margin: auto;
   padding-top: 4rem;

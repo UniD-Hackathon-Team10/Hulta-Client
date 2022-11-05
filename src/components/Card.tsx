@@ -1,14 +1,18 @@
+import { colors } from "@constants/colors";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 import React from "react";
 
 type Props = {
   image: string;
   title: string;
   author: string;
+  id: number;
 };
 
-const Card = ({ image, title, author }: Props) => {
+const Card = ({ image, title, author, id = 1 }: Props) => {
+  const router = useRouter();
   return (
     <motion.div
       initial={{
@@ -17,13 +21,17 @@ const Card = ({ image, title, author }: Props) => {
       }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{
-        duration: 0.5,
+        duration: 0.4,
       }}
       viewport={{ once: true }}
     >
-      <Container>
+      <Container
+        onClick={() => {
+          router.push(`/books/${id}`);
+        }}
+      >
         <Image src={image} />
-        <Title>{title}</Title>
+        <Title>{title.length >= 10 ? title.slice(0, 9) + "..." : title}</Title>
         <Author>{author}</Author>
       </Container>
     </motion.div>
@@ -31,29 +39,41 @@ const Card = ({ image, title, author }: Props) => {
 };
 
 const Container = styled.div`
-  width: 100px;
-  height: 200px;
+  width: 185px;
+  height: 270px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
-  row-gap: 6px;
+  background-color: #ddb793;
+  border-radius: 1rem;
 `;
 
 const Image = styled.img`
-  border-radius: 2px;
+  width: 130px;
+  height: 192px;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  background-color: ${colors.white};
 `;
 
 const Title = styled.h1`
   font-weight: 700;
-  font-size: 12px;
-  line-height: 15px;
+  font-size: 20px;
+  line-height: 1.5;
+  text-align: center;
+  padding-top: 1rem;
 `;
 
 const Author = styled.p`
+  width: 70%;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 12px;
-
   color: #000000;
+  padding-top: 5px;
+  text-align: right;
+  text-transform: capitalize;
 `;
 
 export default Card;

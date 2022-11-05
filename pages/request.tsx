@@ -1,108 +1,139 @@
+import { colors } from "@constants/colors";
 import styled from "@emotion/styled";
-import React, { LegacyRef, useRef, useState } from "react";
-import { colors } from "src/constants/colors";
-
-//import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useAppSelector } from "@store/configureStore";
 
 type Props = {};
 
-const temp = Array(10).fill('').map(() => (
-  {
-    title: "fdsaf",
-    summary: "fdsafdsa",
-    date: "2022.11.05"
-  }
-))
-
 const Request = (props: Props) => {
-  const [results, setResults] = useState(temp);
-
   const inputRef = useRef<HTMLInputElement>(null);
+  const [data, setData] = useState<{ title: string; user: string; date: string }[]>([]);
+  const userInfo = useAppSelector((state) => state.user.userInfo);
+  console.log(data);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    localStorage.setItem(
+      "request",
+      JSON.stringify([
+        ...data,
+        {
+          title: inputRef.current!.value,
+          user: userInfo?.nickname,
+          date: new Date().toISOString(),
+        },
+      ])
+    );
+    inputRef.current!.value = "";
+  };
+
+  useEffect(() => {
+    const data = localStorage.getItem("request");
+    console.log(data);
+    if (!data) {
+      setData([]);
+      return;
+    }
+    setData(JSON.parse(data));
+  });
+
   return (
-    <RequestContainer>
-      <Logo>HULTA</Logo>
-      
-      <PageTitle> 요청 페이지</PageTitle>
-      
-      {
-        results.map((result) => (
-          <CardRow>
-          <BookTitle>{result.title}</BookTitle>
-          <BookSummary>{result.summary}</BookSummary>
-          <Date>{result.date}</Date>
-        </CardRow>
-        ))
-      }
-      
-      
-      
-
-    </RequestContainer>
-    
-  )
-  //<div>Request</div>;
-  
-  
+    <motion.div
+      initial={{
+        y: 100,
+        opacity: 0,
+      }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{
+        duration: 1,
+      }}
+      viewport={{ once: true }}
+    >
+      <RequestContainer>
+        <RequestForm onSubmit={handleSubmit}>
+          <RequestTextArea ref={inputRef} placeholder="원하는 요약본이 있으면 적어주세요!" />
+        </RequestForm>
+        <Cards>
+          {data.map((result, index) => (
+            <CardRow key={index}>
+              <BookTitle>{result.title}</BookTitle>
+              <Description>
+                <User>{result.user}</User>
+                <_Date>{new Date(result.date).toLocaleDateString()}</_Date>
+              </Description>
+            </CardRow>
+          ))}
+        </Cards>
+      </RequestContainer>
+    </motion.div>
+  );
 };
-
 
 const RequestContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding-top: 2rem;
+  width: 100%;
+  max-width: 450px;
 `;
 
-const Logo = styled.h1`
-  color: ${colors.primary};
-  margin: 0;
-  padding-top: 1rem;
-  padding-left: 0rem;
+const RequestForm = styled.form`
+  display: inline-flex;
+  top: 4rem;
+  position: fixed;
 `;
 
-const PageTitle = styled.h2`
-  
-  margin: 0;
-  padding-top: 1rem;
-  padding-left: 0rem;
+const RequestTextArea = styled.input`
+  width: 400px;
+  height: 100px;
+  border-radius: 25px;
+  border: 3px solid ${colors.primary};
+  text-align: center;
+  :focus {
+    outline: none;
+  }
 `;
 
-
+const Cards = styled.div`
+  width: 100%;
+  padding-top: 7rem;
+  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+`;
 
 const CardRow = styled.div`
-
-  width: 240px;
+  width: 80%;
   height: 100px;
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  margin-left: -2rem;
-  margin-top : 3rem;
-  background-color: #D9D9D9;
+  background-color: #cc9767;
+  padding: 0 2rem;
+  word-break: keep-all;
 `;
 
 const BookTitle = styled.h1`
-  width: 143px;
-  height: 37px;
-  font-size : 17px;
-  left: 59px;
-  padding-top: 0rem;
-  margin-left : 0.2rem;
+  font-size: 17px;
 `;
 
-const BookSummary = styled.p`
-  width: 200px;
-  height: 37px;
-  font-size : 14px;
-  margin-left : 0.2rem;
-  margin-top : -2.5px;
+const Description = styled.div`
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
 `;
 
-const Date = styled.p`
-  width: 200px;
-  height: 37px;
-  font-size : 13px;
-  margin-left : 0.2rem;
-  margin-top : -2.5px;
+const User = styled.p`
+  font-size: 14px;
+`;
+
+const _Date = styled.p`
+  font-size: 13px;
 `;
 export default Request;

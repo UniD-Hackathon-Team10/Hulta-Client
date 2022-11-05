@@ -1,21 +1,35 @@
 import Card from "@components/Card";
+import CategorySelector from "@components/CategorySelector";
+import { BOOK_CATEGORY } from "@constants/AppConstant";
 import styled from "@emotion/styled";
-import { colors } from "src/constants/colors";
+import axiosInstance from "@utils/axios";
+import { useEffect, useState } from "react";
 
 interface HomeProps {}
 
-const Temp = Array(50).map(() => ({
-  image: "https://picsum.photos/200/300",
-  title: "테스트입니다",
-  author: "복돌복돌",
-}));
-
 const Home = ({}: HomeProps) => {
+  const [category, setCategory] = useState<{ label: string; value: any }>(BOOK_CATEGORY[0]);
+
+  const [data, setData] = useState<any[]>([]);
+  useEffect(() => {
+    (async () => {
+      const query = category.value ? `/category/${category.value}` : "";
+      const {
+        data: {
+          body: { posts },
+        },
+      } = await axiosInstance.get(`/api/v1/article${query}`);
+      console.log(posts);
+      setData(posts);
+    })();
+  }, [category]);
+
   return (
     <Container>
+      <CategorySelector value={category} setValue={setCategory} options={BOOK_CATEGORY} />
       <DataContainer>
-        {Temp.map((result) => (
-          <Card image={result.image} title={result.title} author={result.author} />
+        {data.map((result) => (
+          <Card image={result.bookThumbnail} title={result.bookTitle} author={result.nickname} id={result.articleNo} />
         ))}
       </DataContainer>
     </Container>
@@ -24,10 +38,18 @@ const Home = ({}: HomeProps) => {
 
 export default Home;
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const DataContainer = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: flex-start;
-  flex: 1;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  /* padding-bottom: 7rem; */
 `;
