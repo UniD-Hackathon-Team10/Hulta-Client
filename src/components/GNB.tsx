@@ -92,8 +92,8 @@ const Column = styled.div<{ active: boolean }>`
   justify-content: center;
   gap: 6px;
   font-size: 12px;
-  /* color: ${(active) => (active ? colors.primary : colors.secondary)}; */
-  color: ${colors.secondary};
+  color: ${({ active }) =>
+    active === true ? colors.primary : colors.secondary};
 `;
 
 export default NavBar;
