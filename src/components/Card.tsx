@@ -1,14 +1,17 @@
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 import React from "react";
 
 type Props = {
   image: string;
   title: string;
   author: string;
+  id: number;
 };
 
-const Card = ({ image, title, author }: Props) => {
+const Card = ({ image, title, author, id = 1 }: Props) => {
+  const router = useRouter();
   return (
     <motion.div
       initial={{
@@ -21,7 +24,11 @@ const Card = ({ image, title, author }: Props) => {
       }}
       viewport={{ once: true }}
     >
-      <Container>
+      <Container
+        onClick={() => {
+          router.push(`/books/${id}`);
+        }}
+      >
         <Image src={image} />
         <Title>{title}</Title>
         <Author>{author}</Author>
