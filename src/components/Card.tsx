@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import React from "react";
 
 type Props = {
@@ -9,11 +10,23 @@ type Props = {
 
 const Card = ({ image, title, author }: Props) => {
   return (
-    <Container>
-      <Image src={image} />
-      <Title>{title}</Title>
-      <Author>{author}</Author>
-    </Container>
+    <motion.div
+      initial={{
+        y: 100,
+        opacity: 0,
+      }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{
+        duration: 0.5,
+      }}
+      viewport={{ once: true }}
+    >
+      <Container>
+        <Image src={image} />
+        <Title>{title}</Title>
+        <Author>{author}</Author>
+      </Container>
+    </motion.div>
   );
 };
 

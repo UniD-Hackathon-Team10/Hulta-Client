@@ -61,10 +61,12 @@ const SearchResult = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  align-content: flex-start;
+  justify-content: start;
   gap: 2rem;
   flex-wrap: wrap;
   padding-bottom: 7rem;
+  padding-left: 3rem;
 `;
 
 export default Search;
