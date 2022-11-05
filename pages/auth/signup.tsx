@@ -4,6 +4,7 @@ import React, { ReactNode, useState } from "react";
 import { useFormik } from "formik";
 import AuthLayout from "@components/AuthLayout";
 import * as Yup from "yup";
+import Logo from "@components/Logo";
 
 type Props = {};
 
@@ -41,17 +42,27 @@ const Signup = (props: Props) => {
   });
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", rowGap: "20px", width: "100%" }}>
-      <TextInput name="nickname" placeholder="닉네임" onChange={handleChange} value={values.nickname} error={errors.nickname} />
-      <TextInput name="id" placeholder="아이디" onChange={handleChange} value={values.id} error={errors.id} />
-      <TextInput name="password" placeholder="비밀번호" onChange={handleChange} value={values.password} error={errors.password} />
-      <TextInput name="rePassword" placeholder="비밀번호 확인" onChange={handleChange} value={values.rePassword} error={errors.rePassword} />
-      <Button
-        label="로그인"
-        buttonStyle={{ width: "100%", borderRadius: "30px", height: "48px", fontSize: "18px", fontWeight: "bold" }}
-        type="submit"
-      />
-    </form>
+    <>
+      <Logo style={{ position: "absolute", top: "12vh" }} />
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", rowGap: "20px", width: "100%" }}>
+        <TextInput name="nickname" placeholder="닉네임" onChange={handleChange} value={values.nickname} error={errors.nickname} />
+        <TextInput name="id" placeholder="아이디" onChange={handleChange} value={values.id} error={errors.id} />
+        <TextInput type="password" name="password" placeholder="비밀번호" onChange={handleChange} value={values.password} error={errors.password} />
+        <TextInput
+          type="password"
+          name="rePassword"
+          placeholder="비밀번호 확인"
+          onChange={handleChange}
+          value={values.rePassword}
+          error={errors.rePassword}
+        />
+        <Button
+          label="회원가입"
+          buttonStyle={{ marginTop: "30px", width: "100%", borderRadius: "30px", height: "52px", fontSize: "18px", fontWeight: "bold" }}
+          type="submit"
+        />
+      </form>
+    </>
   );
 };
 
