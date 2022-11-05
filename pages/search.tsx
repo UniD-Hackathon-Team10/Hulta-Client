@@ -9,10 +9,11 @@ type Props = {};
 
 const Temp = Array(50)
   .fill("")
-  .map((arr) => ({
+  .map((arr, i) => ({
     image: "https://picsum.photos/200/300",
     title: "테스트입니다",
     author: "복돌복돌",
+    id: i,
   }));
 
 const Search = (props: Props) => {
@@ -26,14 +27,21 @@ const Search = (props: Props) => {
       <TextInput
         placeholder="책 검색"
         ref={inputRef}
-        endAdornment={<MagnifyingGlassIcon width={30} height={30} color={colors.primary} />}
+        endAdornment={
+          <MagnifyingGlassIcon width={30} height={30} color={colors.primary} />
+        }
         inputStyle={{ fontSize: "1.1rem" }}
         wrapperStyle={{ width: "90%", margin: "auto" }}
       />
       <SearchTitle>검색 결과</SearchTitle>
       <SearchResult>
         {results.map((result) => (
-          <Card image={result.image} title={result.title} author={result.author} />
+          <Card
+            image={result.image}
+            title={result.title}
+            author={result.author}
+            id={result.id}
+          />
         ))}
       </SearchResult>
     </SearchContainer>

@@ -14,18 +14,20 @@ const email = "test@test.com";
 
 const TempWrote = Array(50)
   .fill("")
-  .map((arr) => ({
+  .map((arr, i) => ({
     image: "https://picsum.photos/200/301",
     title: "테스트입니다",
     author: "복돌복돌",
+    id: i,
   }));
 
 const TempLiked = Array(50)
   .fill("")
-  .map((arr) => ({
+  .map((arr, i) => ({
     image: "https://picsum.photos/200/300",
     title: "테스트입니다",
     author: "복돌복돌",
+    id: i,
   }));
 
 const MyPage = () => {
@@ -63,6 +65,7 @@ const MyPage = () => {
                 image={data.image}
                 title={data.title}
                 author={data.author}
+                id={data.id}
               />
             ))}
           {active === TAB.liked &&
@@ -71,6 +74,7 @@ const MyPage = () => {
                 image={data.image}
                 title={data.title}
                 author={data.author}
+                id={data.id}
               />
             ))}
         </Cards>

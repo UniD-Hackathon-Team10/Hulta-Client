@@ -6,13 +6,14 @@ import { colors } from "src/constants/colors";
 
 type Props = {};
 
-const temp = Array(10).fill('').map(() => (
-  {
-    title: "fdsaf",
-    summary: "fdsafdsa",
-    date: "2022.11.05"
-  }
-))
+const temp = Array(10)
+  .fill("")
+  .map(() => ({
+    book_title: "fdsaf",
+    summary_author: "fdsafdsa",
+    date: "2022.11.05",
+    likes: " 하트 수",
+  }));
 
 const Request = (props: Props) => {
   const [results, setResults] = useState(temp);
@@ -20,31 +21,20 @@ const Request = (props: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   return (
     <RequestContainer>
-      <Logo></Logo>
-      
-      <PageTitle> 요청 페이지</PageTitle>
-      
-      {
-        results.map((result) => (
-          <CardRow>
-          <BookTitle>{result.title}</BookTitle>
-          <BookSummary>{result.summary}</BookSummary>
+      <PageTitle> 디테일 페이지</PageTitle>
+      <p>hello</p>
+      {results.map((result) => (
+        <CardRow>
+          <Book_Title>{result.book_title}</Book_Title>
+          <Summary_Author>{result.summary_author}</Summary_Author>
           <Date>{result.date}</Date>
+          <Likes>{result.likes}</Likes>
         </CardRow>
-        ))
-      }
-      
-      
-      
-
+      ))}
     </RequestContainer>
-    
-  )
+  );
   //<div>Request</div>;
-  
-  
 };
-
 
 const RequestContainer = styled.div`
   display: flex;
@@ -62,47 +52,54 @@ const Logo = styled.h1`
 `;
 
 const PageTitle = styled.h2`
-  
+  width: 240px;
+  height: 100px;
+  display: flex;
   margin: 0;
   padding-top: 1rem;
   padding-left: 0rem;
 `;
 
-
-
 const CardRow = styled.div`
-
   width: 240px;
   height: 100px;
   display: flex;
   flex-direction: column;
   margin-left: -2rem;
-  margin-top : 3rem;
-  background-color: #D9D9D9;
+  margin-top: 3rem;
+  background-color: #d9d9d9;
 `;
 
-const BookTitle = styled.h1`
+const Book_Title = styled.h1`
   width: 143px;
   height: 37px;
-  font-size : 17px;
+  font-size: 17px;
   left: 59px;
   padding-top: 0rem;
-  margin-left : 0.2rem;
+  margin-left: 0.2rem;
 `;
 
-const BookSummary = styled.p`
+const Summary_Author = styled.p`
   width: 200px;
   height: 37px;
-  font-size : 14px;
-  margin-left : 0.2rem;
-  margin-top : -2.5px;
+  font-size: 14px;
+  margin-left: 0.2rem;
+  margin-top: -2.5px;
 `;
 
 const Date = styled.p`
   width: 200px;
   height: 37px;
-  font-size : 13px;
-  margin-left : 0.2rem;
-  margin-top : -2.5px;
+  font-size: 13px;
+  margin-left: 0.2rem;
+  margin-top: -2.5px;
+`;
+const Likes = styled.p`
+  width: 143px;
+  height: 37px;
+  font-size: 17px;
+  left: 59px;
+  padding-top: 0rem;
+  margin-left: 0.2rem;
 `;
 export default Request;

@@ -4,10 +4,11 @@ import { colors } from "src/constants/colors";
 
 interface HomeProps {}
 
-const Temp = Array(50).map(() => ({
+const Temp = Array(50).map((_, i) => ({
   image: "https://picsum.photos/200/300",
   title: "테스트입니다",
   author: "복돌복돌",
+  id: i,
 }));
 
 const Home = ({}: HomeProps) => {
@@ -15,7 +16,12 @@ const Home = ({}: HomeProps) => {
     <Container>
       <DataContainer>
         {Temp.map((result) => (
-          <Card image={result.image} title={result.title} author={result.author} />
+          <Card
+            image={result.image}
+            title={result.title}
+            author={result.author}
+            id={result.id}
+          />
         ))}
       </DataContainer>
     </Container>
