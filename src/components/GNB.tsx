@@ -74,9 +74,10 @@ const NavBar = (props: Props) => {
 };
 
 const Wrapper = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
+  max-width: 450px;
   height: 6rem;
   display: flex;
   align-items: center;
