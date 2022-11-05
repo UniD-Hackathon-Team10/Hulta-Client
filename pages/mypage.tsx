@@ -1,39 +1,40 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { UserCircleIcon } from "@heroicons/react/24/solid";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { colors } from "src/constants/colors";
 import Card from "@components/Card";
-import Image from "next/image";
+import axiosInstance from "@utils/axios";
 
 enum TAB {
   wrote,
   liked,
 }
 
+const userId = 1;
 const name = "테스트";
 const email = "test@test.com";
 
-const TempWrote = Array(50)
-  .fill("")
-  .map((arr, i) => ({
-    image: "https://picsum.photos/200/301",
-    title: "전공책",
-    author: "복돌복돌",
-    id: i,
-  }));
-
-const TempLiked = Array(50)
-  .fill("")
-  .map((arr, i) => ({
-    image: "https://picsum.photos/300/300",
-    title: "좋은책",
-    author: "복돌복돌",
-    id: i,
-  }));
-
 const MyPage = () => {
   const [active, setActive] = useState(TAB.wrote);
+
+  const [data, setData] = useState<{ myPosts: any[]; likePosts: any[] }>({ myPosts: [], likePosts: [] });
+
+  useEffect(() => {
+    (async () => {
+      const {
+        data: {
+          body: { posts: myPosts },
+        },
+      } = await axiosInstance.get(`/api/v1/users/article/${userId}`);
+      const {
+        data: {
+          body: { posts: likePosts },
+        },
+      } = await axiosInstance.get(`/api/v1/article`);
+
+      setData({ myPosts, likePosts });
+    })();
+  }, []);
 
   return (
     <Container>
@@ -47,12 +48,7 @@ const MyPage = () => {
           }}
         >
           {/* <UserCircleIcon width={140} /> */}
-          <img
-            width={130}
-            height={130}
-            src="https://picsum.photos/300/300"
-            style={{ borderRadius: 150 }}
-          />
+          <img width={130} height={130} src="https://picsum.photos/300/300" style={{ borderRadius: 150 }} />
         </div>
         <div
           style={{
@@ -89,23 +85,9 @@ const MyPage = () => {
         </Categories>
         <Cards>
           {active === TAB.wrote &&
-            TempWrote.map((data) => (
-              <Card
-                image={data.image}
-                title={data.title}
-                author={data.author}
-                id={data.id}
-              />
-            ))}
+            data.myPosts.map((data) => <Card image={data.bookThumbnail} title={data.bookTitle} author={data.nickname} id={data.articleNo} />)}
           {active === TAB.liked &&
-            TempLiked.map((data) => (
-              <Card
-                image={data.image}
-                title={data.title}
-                author={data.author}
-                id={data.id}
-              />
-            ))}
+            data.likePosts.map((data) => <Card image={data.bookThumbnail} title={data.bookTitle} author={data.nickname} id={data.articleNo} />)}
         </Cards>
       </MyPageContent>
     </Container>
