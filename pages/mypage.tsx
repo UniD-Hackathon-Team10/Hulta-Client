@@ -82,7 +82,7 @@ const MyPage = () => {
 const Container = styled.div`
   position: relative;
   overflow: scroll;
-  height: 100%;
+  height: 100vh;
 `;
 
 const MyPageHeader = styled.div`
@@ -120,7 +120,8 @@ const Categories = styled.div`
   display: flex;
   height: 40px;
   align-items: center;
-  background-color: #d9d9d9;
+  background-color: white;
+  border-bottom: 2px solid #ededed;
 `;
 
 const Category = styled.div<{ isActive: boolean }>`
@@ -131,6 +132,21 @@ const Category = styled.div<{ isActive: boolean }>`
   align-content: center;
   justify-content: center;
   color: ${({ isActive }) => isActive && colors.primary};
+  ${(p) =>
+    p.isActive &&
+    css`
+      font-weight: 600;
+      color: ${colors.primary};
+      :after {
+        content: "";
+        position: absolute;
+        bottom: -11.5px;
+        width: 150px;
+        height: 2px;
+        border-radius: 9999px;
+        background: ${colors.primary};
+      }
+    `}
 `;
 
 const Cards = styled.div`
@@ -138,12 +154,10 @@ const Cards = styled.div`
   display: flex;
   align-items: center;
   align-content: flex-start;
-  justify-content: start;
+  justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
   margin-top: 2rem;
-  padding-bottom: 7rem;
-  padding-left: 3rem;
 `;
 
 export default MyPage;
