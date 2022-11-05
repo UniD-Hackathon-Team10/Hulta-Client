@@ -51,7 +51,7 @@ const DetailBook = (props: Props) => {
             <Summary_Author>{result.summary_author}</Summary_Author>
             <Date>{result.date}</Date>
             <Likes>{result.likes}</Likes>
-            <div style={{ width: "100%" }}>
+            <div style={{ width: "90%" }}>
               <HeartIcon width={30} height={30} />
             </div>
           </div>
@@ -106,7 +106,7 @@ const CardRow = styled.div`
 `;
 
 const Book_Title = styled.h1`
-  width: 100%;
+  width: 90%;
   height: 37px;
   font-size: 17px;
 `;
@@ -122,18 +122,18 @@ const Likes_image = styled.img`
 `;
 
 const Summary_Author = styled.p`
-  width: 100%;
+  width: 90%;
   height: 37px;
   font-size: 14px;
 `;
 
 const Date = styled.p`
-  width: 100%;
+  width: 90%;
   height: 37px;
   font-size: 13px;
 `;
 const Likes = styled.p`
-  width: 100%;
+  width: 90%;
   height: 37px;
   font-size: 17px;
 `;
