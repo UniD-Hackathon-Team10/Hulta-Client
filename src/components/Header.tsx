@@ -1,13 +1,14 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { colors } from "src/constants/colors";
+import Logo from "./Logo";
 
 type Props = {};
 
 const Header = (props: Props) => {
   return (
     <Wrapper>
-      <Logo>HULTA</Logo>
+      <Logo />
     </Wrapper>
   );
 };
@@ -23,11 +24,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin: auto;
-`;
-
-const Logo = styled.h1`
-  color: ${colors.primary};
-  margin: 0;
+  z-index: 1000;
 `;
 
 export default Header;

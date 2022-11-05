@@ -2,14 +2,31 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import React, { useState } from "react";
 import { colors } from "src/constants/colors";
-
-const name = "테스트";
-const email = "test@test.com";
+import Card from "@components/Card";
 
 enum TAB {
   wrote,
   liked,
 }
+
+const name = "테스트";
+const email = "test@test.com";
+
+const TempWrote = Array(50)
+  .fill("")
+  .map((arr) => ({
+    image: "https://picsum.photos/200/301",
+    title: "테스트입니다",
+    author: "복돌복돌",
+  }));
+
+const TempLiked = Array(50)
+  .fill("")
+  .map((arr) => ({
+    image: "https://picsum.photos/200/300",
+    title: "테스트입니다",
+    author: "복돌복돌",
+  }));
 
 const MyPage = () => {
   const [active, setActive] = useState(TAB.wrote);
@@ -39,12 +56,34 @@ const MyPage = () => {
             좋아요 게시글
           </Category>
         </Categories>
+        <Cards>
+          {active === TAB.wrote &&
+            TempWrote.map((data) => (
+              <Card
+                image={data.image}
+                title={data.title}
+                author={data.author}
+              />
+            ))}
+          {active === TAB.liked &&
+            TempLiked.map((data) => (
+              <Card
+                image={data.image}
+                title={data.title}
+                author={data.author}
+              />
+            ))}
+        </Cards>
       </MyPageContent>
     </Container>
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  position: relative;
+  overflow: scroll;
+  height: 100%;
+`;
 
 const MyPageHeader = styled.div`
   width: 100%;
@@ -76,6 +115,8 @@ const UserEmail = styled.p`
 const MyPageContent = styled.div``;
 
 const Categories = styled.div`
+  position: sticky;
+  top: 0px;
   display: flex;
   height: 40px;
   align-items: center;
@@ -90,6 +131,17 @@ const Category = styled.div<{ isActive: boolean }>`
   align-content: center;
   justify-content: center;
   color: ${({ isActive }) => isActive && colors.primary};
+`;
+
+const Cards = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  padding-bottom: 7rem;
 `;
 
 export default MyPage;
