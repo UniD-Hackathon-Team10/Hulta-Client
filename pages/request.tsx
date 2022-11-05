@@ -1,27 +1,42 @@
 import { colors } from "@constants/colors";
 import styled from "@emotion/styled";
-import React, { LegacyRef, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useAppSelector } from "@store/configureStore";
 
 type Props = {};
 
-const temp = Array(10)
-  .fill("")
-  .map(() => ({
-    title: "다이나믹 프로그래밍 완전 정복 책 요약 좀 해주세요",
-    user: "알고리즘 좋아하는 사람",
-    date: "2022.11.05",
-  }));
-
 const Request = (props: Props) => {
-  const [results, setResults] = useState(temp);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [data, setData] = useState<{ title: string; user: string; date: string }[]>([]);
+  const userInfo = useAppSelector((state) => state.user.userInfo);
+  console.log(data);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    //axios post
+    localStorage.setItem(
+      "request",
+      JSON.stringify([
+        ...data,
+        {
+          title: inputRef.current!.value,
+          user: userInfo?.nickname,
+          date: new Date().toISOString(),
+        },
+      ])
+    );
     inputRef.current!.value = "";
   };
+
+  useEffect(() => {
+    const data = localStorage.getItem("request");
+    console.log(data);
+    if (!data) {
+      setData([]);
+      return;
+    }
+    setData(JSON.parse(data));
+  });
 
   return (
     <motion.div
@@ -37,18 +52,15 @@ const Request = (props: Props) => {
     >
       <RequestContainer>
         <RequestForm onSubmit={handleSubmit}>
-          <RequestTextArea
-            ref={inputRef}
-            placeholder="원하는 요약본이 있으면 적어주세요!"
-          />
+          <RequestTextArea ref={inputRef} placeholder="원하는 요약본이 있으면 적어주세요!" />
         </RequestForm>
         <Cards>
-          {results.map((result) => (
-            <CardRow>
+          {data.map((result, index) => (
+            <CardRow key={index}>
               <BookTitle>{result.title}</BookTitle>
               <Description>
                 <User>{result.user}</User>
-                <Date>{result.date}</Date>
+                <_Date>{new Date(result.date).toLocaleDateString()}</_Date>
               </Description>
             </CardRow>
           ))}
@@ -121,7 +133,7 @@ const User = styled.p`
   font-size: 14px;
 `;
 
-const Date = styled.p`
+const _Date = styled.p`
   font-size: 13px;
 `;
 export default Request;

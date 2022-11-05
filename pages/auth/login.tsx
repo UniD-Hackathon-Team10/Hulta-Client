@@ -6,11 +6,18 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import Logo from "@components/Logo";
+import { useAppDispatch } from "@store/configureStore";
+import { login } from "@store/slices/userSlice";
+import { useRouter } from "next/router";
 
 type LoginProps = {};
 
 const Login = ({}: LoginProps) => {
-  const { values, errors, handleSubmit, handleChange } = useFormik({
+  const dispatch = useAppDispatch();
+
+  const router = useRouter();
+
+  const { values, errors, handleSubmit, handleChange, resetForm } = useFormik({
     initialValues: {
       id: "",
       password: "",
@@ -19,9 +26,16 @@ const Login = ({}: LoginProps) => {
       id: Yup.string().required("아이디를 입력해 주세요."),
       password: Yup.string().min(6, "6자리 이상 비밀번호를 입력해 주세요.").required("비밀번호를 입력해 주세요."),
     }),
-    onSubmit: async () => {
-      // TODO API 연동
+    onSubmit: async (values) => {
+      const userInfo = localStorage.getItem("userData");
+      const _userInfo = userInfo ? JSON.parse(userInfo) : [];
+      console.log(_userInfo);
+      const myInfo = _userInfo.find((data: { userId: string; password: string }) => data.userId === values.id && data.password === values.password);
+      if (!myInfo) return;
+      dispatch(login({ userId: myInfo.userId, nickname: myInfo.nickname, createdAt: myInfo.createdAt }));
+      resetForm();
       console.log("로그인");
+      router.push("/");
     },
   });
 

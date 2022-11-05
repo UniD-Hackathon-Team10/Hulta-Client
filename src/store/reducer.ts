@@ -1,9 +1,11 @@
+import userSlice, { UserState } from "./slices/userSlice";
 import { AnyAction, CombinedState, combineReducers } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import uiSlice, { UiState } from "./slices/uiSlice";
 
 interface IRootStates {
   ui: UiState;
+  user: UserState;
 }
 
 const rootReducer = (state: IRootStates, action: AnyAction): CombinedState<IRootStates> => {
@@ -13,6 +15,7 @@ const rootReducer = (state: IRootStates, action: AnyAction): CombinedState<IRoot
     default: {
       const combinedReducer = combineReducers({
         ui: uiSlice,
+        user: userSlice,
       });
       return combinedReducer(state, action);
     }

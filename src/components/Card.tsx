@@ -1,3 +1,4 @@
+import { colors } from "@constants/colors";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
@@ -30,7 +31,7 @@ const Card = ({ image, title, author, id = 1 }: Props) => {
         }}
       >
         <Image src={image} />
-        <Title>{title}</Title>
+        <Title>{title.length >= 10 ? title.slice(0, 9) + "..." : title}</Title>
         <Author>{author}</Author>
       </Container>
     </motion.div>
@@ -50,13 +51,16 @@ const Container = styled.div`
 
 const Image = styled.img`
   width: 130px;
+  height: 192px;
+  object-fit: contain;
   border-radius: 0.5rem;
+  background-color: ${colors.white};
 `;
 
 const Title = styled.h1`
   font-weight: 700;
   font-size: 20px;
-  line-height: 15px;
+  line-height: 1.5;
   text-align: center;
   padding-top: 1rem;
 `;
@@ -64,11 +68,12 @@ const Title = styled.h1`
 const Author = styled.p`
   width: 70%;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 12px;
   color: #000000;
   padding-top: 5px;
   text-align: right;
+  text-transform: capitalize;
 `;
 
 export default Card;

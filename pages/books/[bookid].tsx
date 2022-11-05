@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import styled from "@emotion/styled";
-import React, { LegacyRef, useRef, useState } from "react";
+import React, { LegacyRef, useEffect, useMemo, useRef, useState } from "react";
+import axiosInstance from "@utils/axios";
+import { BOOK_CATEGORY } from "@constants/AppConstant";
 
 const temp = {
   image: "https://picsum.photos/200/300",
@@ -15,14 +17,36 @@ const temp = {
 };
 
 const DetailBook = () => {
-  const [result, setResults] = useState(temp);
+  const [result, setResults] = useState<any | null>(null);
+  const [category, setCategory] = useState("");
   const router = useRouter();
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const postId = useMemo(() => router.query.bookid, [router]);
 
+  useEffect(() => {
+    if (!postId) return;
+    (async () => {
+      const {
+        data: {
+          body: { posts },
+        },
+      } = await axiosInstance.get(`/api/v1/article/${postId}`);
+      console.log(posts);
+      const category = BOOK_CATEGORY.find((data) => data.value === posts.category);
+      setCategory(category?.label || "");
+      setResults(posts);
+    })();
+  }, [postId]);
+
+  if (!result)
+    return (
+      <div style={{ display: "flex", height: "400px", alignItems: "center", justifyContent: "center" }}>
+        <p>Loading...</p>
+      </div>
+    );
   return (
     <RequestContainer>
-      <PageTitle>카테고리</PageTitle>
+      <PageTitle>카테고리 : {category}</PageTitle>
       <CardRowLine />
       <CardRow>
         <div
@@ -32,7 +56,7 @@ const DetailBook = () => {
             justifyContent: "center",
           }}
         >
-          <SummaryImage src={result.image} />
+          <SummaryImage src={result.bookThumbnail} />
         </div>
         <div
           style={{
@@ -44,22 +68,22 @@ const DetailBook = () => {
             gap: "1rem",
           }}
         >
-          <Book_Title>{result.book_title}</Book_Title>
-          <Summary_Author>{result.summary_author}</Summary_Author>
-          <Date>{result.date}</Date>
-          <Likes>{result.likes}</Likes>
+          <Book_Title>{result.bookTitle}</Book_Title>
+          <Summary_Author>{result.author}</Summary_Author>
+          <_Date>{new Date(result.createdDate).toLocaleString()}</_Date>
+          {/* <Likes>{10}</Likes>
           <div style={{ width: "100%" }}>
             <HeartIcon width={30} height={30} />
-          </div>
+          </div> */}
         </div>
       </CardRow>
       <CardRowLine />
       <PageTitle>요약</PageTitle>
       <CardRowLine />
       <SummarySubtitle>
-        {result.book_title}의 요약본 - 작성자 {result.summary_author}
+        {result.bookTitle}의 요약본 - 작성자 {result.nickname}
       </SummarySubtitle>
-      <Summary>{result.summary}</Summary>
+      <Summary>{result.content}</Summary>
     </RequestContainer>
   );
 };
@@ -87,22 +111,25 @@ const CardRowLine = styled.div`
   background-color: black;
 `;
 const CardRow = styled.div`
-  width: 349px;
+  width: 356px;
   height: 214px;
   display: flex;
   margin: 2rem 0;
   background-color: #ddb793;
+  border-radius: 8px;
 `;
 
 const SummaryImage = styled.img`
   width: 133px;
   height: 185px;
   margin: 0 1rem;
+  border-radius: 4px;
 `;
 
 const Book_Title = styled.h1`
   width: 100%;
   font-size: 22px;
+  word-break: keep-all;
 `;
 
 const Likes_image = styled.img`
@@ -114,7 +141,7 @@ const Summary_Author = styled.p`
   font-size: 14px;
 `;
 
-const Date = styled.p`
+const _Date = styled.p`
   width: 100%;
   font-size: 13px;
 `;
@@ -125,15 +152,13 @@ const Likes = styled.p`
 
 const SummarySubtitle = styled.div`
   margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 0 20px;
   font-size: 20px;
 `;
 
 const Summary = styled.p`
   padding: 2rem;
+  line-height: 1.8;
 `;
 
 export default DetailBook;
