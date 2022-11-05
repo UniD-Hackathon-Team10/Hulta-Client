@@ -5,7 +5,12 @@ import type { AppProps } from "next/app";
 import { NextPage } from "next";
 import { ReactElement, ReactNode, useState } from "react";
 import { ToastContainer } from "react-toastify";
-import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import Layout from "@components/Layout";
 
 //참고: https://nextjs.org/docs/basic-features/layouts#with-typescript
 export type NextPageWithLayout<T> = NextPage<T> & {
@@ -17,7 +22,7 @@ interface MyAppProps extends AppProps {
 }
 
 function MyApp({ Component, pageProps }: MyAppProps) {
-  const getLayout = Component.getLayout ?? ((page) => page);
+  // const getLayout = Component.getLayout ?? ((page) => page);
 
   const [client] = useState(
     () =>
@@ -34,7 +39,9 @@ function MyApp({ Component, pageProps }: MyAppProps) {
     <>
       <QueryClientProvider client={client}>
         <ToastContainer position="bottom-center" autoClose={3000} />
-        {getLayout(<Component {...pageProps} />)}
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </QueryClientProvider>
     </>
   );
