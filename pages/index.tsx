@@ -1,8 +1,12 @@
-import type { NextPage } from "next";
-import styled from "@emotion/styled";
+import { NextPageWithLayout } from "./_app";
+import Layout from "@components/Layout";
 
-const Home = () => {
+interface HomeProps {}
+
+const Home: NextPageWithLayout<HomeProps> = ({}: HomeProps) => {
   return <div>Index</div>;
 };
 
 export default Home;
+
+Home.getLayout = (page) => <Layout>{page}</Layout>;
