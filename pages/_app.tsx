@@ -7,6 +7,7 @@ import { ReactElement, ReactNode, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
+import Layout from "@components/Layout";
 
 //참고: https://nextjs.org/docs/basic-features/layouts#with-typescript
 export type NextPageWithLayout<T> = NextPage<T> & {
@@ -19,7 +20,7 @@ interface MyAppProps extends AppProps {
 
 function MyApp({ Component, ...rest }: MyAppProps) {
   // const getLayout = Component.getLayout ?? ((page) => page);
-  const getLayout = Component.getLayout ?? ((page) => page);
+  const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
   const { store, props } = wrapper.useWrappedStore(rest);
 
   const [client] = useState(

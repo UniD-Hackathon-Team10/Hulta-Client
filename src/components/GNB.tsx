@@ -7,26 +7,66 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
 import { colors } from "src/constants/colors";
+import { useRouter } from "next/router";
 
 type Props = {};
 
 const NavBar = (props: Props) => {
+  const router = useRouter();
+  const path = router.asPath;
+
   return (
     <Wrapper>
-      <Column>
-        <HomeIcon width={30} height={30} color={colors.primary} />
+      <Column
+        onClick={() => {
+          router.push("/");
+        }}
+        active={path === "/"}
+      >
+        <HomeIcon
+          width={30}
+          height={30}
+          color={path === "/" ? colors.primary : colors.secondary}
+        />
         메인
       </Column>
-      <Column>
-        <MagnifyingGlassIcon width={30} height={30} color={colors.primary} />
+      <Column
+        onClick={() => {
+          router.push("/search");
+        }}
+        active={path === "/search"}
+      >
+        <MagnifyingGlassIcon
+          width={30}
+          height={30}
+          color={path === "/search" ? colors.primary : colors.secondary}
+        />
         검색
       </Column>
-      <Column>
-        <PlusIcon width={30} height={30} color={colors.primary} />
+      <Column
+        onClick={() => {
+          router.push("/request");
+        }}
+        active={path === "/request"}
+      >
+        <PlusIcon
+          width={30}
+          height={30}
+          color={path === "/request" ? colors.primary : colors.secondary}
+        />
         요청
       </Column>
-      <Column>
-        <UserIcon width={30} height={30} color={colors.primary} />
+      <Column
+        onClick={() => {
+          router.push("/mypage");
+        }}
+        active={path === "/mypage"}
+      >
+        <UserIcon
+          width={30}
+          height={30}
+          color={path === "/mypage" ? colors.primary : colors.secondary}
+        />
         마이홈
       </Column>
     </Wrapper>
@@ -45,14 +85,15 @@ const Wrapper = styled.div`
   background: #ffffff;
 `;
 
-const Column = styled.div`
+const Column = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 6px;
   font-size: 12px;
-  color: ${colors.primary};
+  color: ${({ active }) =>
+    active === true ? colors.primary : colors.secondary};
 `;
 
 export default NavBar;
