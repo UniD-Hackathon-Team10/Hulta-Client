@@ -26,14 +26,26 @@ const Search = (props: Props) => {
       <TextInput
         placeholder="책 검색"
         ref={inputRef}
-        endAdornment={<MagnifyingGlassIcon width={30} height={30} color={colors.primary} />}
+        endAdornment={
+          <MagnifyingGlassIcon width={30} height={30} color={colors.primary} />
+        }
         inputStyle={{ fontSize: "1.1rem" }}
-        wrapperStyle={{ width: "90%", margin: "auto" }}
+        wrapperStyle={{
+          width: "90%",
+          maxWidth: "450px",
+          margin: "auto",
+          position: "fixed",
+          backgroundColor: "white",
+        }}
       />
       <SearchTitle>검색 결과</SearchTitle>
       <SearchResult>
         {results.map((result) => (
-          <Card image={result.image} title={result.title} author={result.author} />
+          <Card
+            image={result.image}
+            title={result.title}
+            author={result.author}
+          />
         ))}
       </SearchResult>
     </SearchContainer>
@@ -49,17 +61,9 @@ const SearchContainer = styled.div`
 
 const SearchTitle = styled.h1`
   padding: 1rem 0;
+  margin-top: 4rem;
   width: 100%;
   text-align: center;
-`;
-
-const SearchBar = styled.input`
-  width: 90%;
-  height: 4rem;
-  border-radius: 2rem;
-  border-color: ${colors.primary};
-  text-align: center;
-  font-size: 1.2rem;
 `;
 
 const SearchResult = styled.div`
@@ -67,11 +71,10 @@ const SearchResult = styled.div`
   display: flex;
   align-items: center;
   align-content: flex-start;
-  justify-content: start;
+  justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
   padding-bottom: 7rem;
-  padding-left: 3rem;
 `;
 
 export default Search;
