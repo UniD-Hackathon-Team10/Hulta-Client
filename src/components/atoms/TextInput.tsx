@@ -33,6 +33,7 @@ const Container = styled.div`
   border: 3px solid ${colors.primary};
   overflow: hidden;
   display: flex;
+  align-items: center;
   padding: 4px 16px;
 `;
 

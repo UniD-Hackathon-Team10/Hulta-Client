@@ -5,6 +5,7 @@ import React, { ChangeEvent, ReactNode, useCallback } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
+import Logo from "@components/Logo";
 
 type LoginProps = {};
 
@@ -26,10 +27,14 @@ const Login = ({}: LoginProps) => {
 
   return (
     <>
+      <Logo style={{ position: "absolute", top: "12vh" }} />
       <form onSubmit={handleSubmit} style={{ width: "100%", display: "flex", flexDirection: "column", rowGap: "20px" }}>
         <TextInput name="id" placeholder="아이디" onChange={handleChange} value={values.id} error={errors.id} />
-        <TextInput name="password" placeholder="비밀번호" onChange={handleChange} value={values.password} error={errors.password} />
-        <Button label="로그인" buttonStyle={{ width: "100%", borderRadius: "30px", height: "48px", fontSize: "18px", fontWeight: "bold" }} />
+        <TextInput type="password" name="password" placeholder="비밀번호" onChange={handleChange} value={values.password} error={errors.password} />
+        <Button
+          label="로그인"
+          buttonStyle={{ marginTop: "30px", width: "100%", borderRadius: "30px", height: "52px", fontSize: "18px", fontWeight: "bold" }}
+        />
       </form>
       <Link href="/auth/signup" passHref>
         <a style={{ margin: "20px 0" }}>회원가입</a>

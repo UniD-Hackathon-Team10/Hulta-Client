@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { CSSProperties } from "react";
 import { colors } from "src/constants/colors";
 
-type Props = {};
+type LogoProps = {
+  style?: CSSProperties;
+};
 
-const Logo = (props: Props) => {
-  return <Title>HULTA</Title>;
+const Logo = ({ style }: LogoProps) => {
+  return <Title style={style}>HULTA</Title>;
 };
 
 const Title = styled.h1`
