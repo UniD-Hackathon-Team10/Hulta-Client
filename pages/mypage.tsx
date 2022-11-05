@@ -137,11 +137,13 @@ const Cards = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  align-content: flex-start;
+  justify-content: start;
   gap: 2rem;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: 2rem;
   padding-bottom: 7rem;
+  padding-left: 3rem;
 `;
 
 export default MyPage;
