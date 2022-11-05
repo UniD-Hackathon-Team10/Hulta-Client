@@ -1,11 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
-import {
-  HomeIcon,
-  PlusIcon,
-  UserIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/solid";
+import { HomeIcon, PlusIcon, UserIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { colors } from "src/constants/colors";
 import { useRouter } from "next/router";
 
@@ -23,11 +18,7 @@ const NavBar = (props: Props) => {
         }}
         active={path === "/"}
       >
-        <HomeIcon
-          width={30}
-          height={30}
-          color={path === "/" ? colors.primary : colors.secondary}
-        />
+        <HomeIcon width={30} height={30} color={path === "/" ? colors.primary : colors.secondary} />
         메인
       </Column>
       <Column
@@ -36,11 +27,7 @@ const NavBar = (props: Props) => {
         }}
         active={path === "/search"}
       >
-        <MagnifyingGlassIcon
-          width={30}
-          height={30}
-          color={path === "/search" ? colors.primary : colors.secondary}
-        />
+        <MagnifyingGlassIcon width={30} height={30} color={path === "/search" ? colors.primary : colors.secondary} />
         검색
       </Column>
       <Column
@@ -49,11 +36,7 @@ const NavBar = (props: Props) => {
         }}
         active={path === "/request"}
       >
-        <PlusIcon
-          width={30}
-          height={30}
-          color={path === "/request" ? colors.primary : colors.secondary}
-        />
+        <PlusIcon width={30} height={30} color={path === "/request" ? colors.primary : colors.secondary} />
         요청
       </Column>
       <Column
@@ -62,11 +45,7 @@ const NavBar = (props: Props) => {
         }}
         active={path === "/mypage"}
       >
-        <UserIcon
-          width={30}
-          height={30}
-          color={path === "/mypage" ? colors.primary : colors.secondary}
-        />
+        <UserIcon width={30} height={30} color={path === "/mypage" ? colors.primary : colors.secondary} />
         마이홈
       </Column>
     </Wrapper>
@@ -92,8 +71,7 @@ const Column = styled.div<{ active: boolean }>`
   justify-content: center;
   gap: 6px;
   font-size: 12px;
-  color: ${({ active }) =>
-    active === true ? colors.primary : colors.secondary};
+  color: ${({ active }) => (active === true ? colors.primary : colors.secondary)};
 `;
 
 export default NavBar;
