@@ -32,10 +32,12 @@ const SearchContainer = styled.div`
 
 const SearchBar = styled.input`
   width: 90%;
-  height: 2.5rem;
+  height: 4rem;
   border-radius: 2rem;
   padding-left: 1rem;
   border-color: ${colors.primary};
+  text-align: center;
+  font-size: 1.2rem;
 `;
 
 const SearchResult = styled.div`
