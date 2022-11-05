@@ -31,7 +31,7 @@ const Card = ({ image, title, author }: Props) => {
 };
 
 const Container = styled.div`
-  width: 175px;
+  width: 185px;
   height: 270px;
   display: flex;
   align-items: center;

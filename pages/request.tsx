@@ -83,7 +83,7 @@ const Cards = styled.div`
 `;
 
 const CardRow = styled.div`
-  width: 85%;
+  width: 80%;
   height: 100px;
   display: flex;
   justify-content: center;
