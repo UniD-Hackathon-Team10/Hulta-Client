@@ -1,6 +1,7 @@
 import { colors } from "@constants/colors";
 import styled from "@emotion/styled";
 import React, { LegacyRef, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 type Props = {};
 
@@ -23,25 +24,37 @@ const Request = (props: Props) => {
   };
 
   return (
-    <RequestContainer>
-      <RequestForm onSubmit={handleSubmit}>
-        <RequestTextArea
-          ref={inputRef}
-          placeholder="원하는 요약본이 있으면 적어주세요!"
-        />
-      </RequestForm>
-      <Cards>
-        {results.map((result) => (
-          <CardRow>
-            <BookTitle>{result.title}</BookTitle>
-            <Description>
-              <User>{result.user}</User>
-              <Date>{result.date}</Date>
-            </Description>
-          </CardRow>
-        ))}
-      </Cards>
-    </RequestContainer>
+    <motion.div
+      initial={{
+        y: 100,
+        opacity: 0,
+      }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{
+        duration: 1,
+      }}
+      viewport={{ once: true }}
+    >
+      <RequestContainer>
+        <RequestForm onSubmit={handleSubmit}>
+          <RequestTextArea
+            ref={inputRef}
+            placeholder="원하는 요약본이 있으면 적어주세요!"
+          />
+        </RequestForm>
+        <Cards>
+          {results.map((result) => (
+            <CardRow>
+              <BookTitle>{result.title}</BookTitle>
+              <Description>
+                <User>{result.user}</User>
+                <Date>{result.date}</Date>
+              </Description>
+            </CardRow>
+          ))}
+        </Cards>
+      </RequestContainer>
+    </motion.div>
   );
 };
 
