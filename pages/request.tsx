@@ -7,8 +7,8 @@ type Props = {};
 const temp = Array(10)
   .fill("")
   .map(() => ({
-    title: "fdsaf",
-    summary: "fdsafdsa",
+    title: "다이나믹 프로그래밍 완전 정복 책 요약 좀 해주세요",
+    user: "알고리즘 좋아하는 사람",
     date: "2022.11.05",
   }));
 
@@ -34,8 +34,10 @@ const Request = (props: Props) => {
         {results.map((result) => (
           <CardRow>
             <BookTitle>{result.title}</BookTitle>
-            <BookSummary>{result.summary}</BookSummary>
-            <Date>{result.date}</Date>
+            <Description>
+              <User>{result.user}</User>
+              <Date>{result.date}</Date>
+            </Description>
           </CardRow>
         ))}
       </Cards>
@@ -61,7 +63,7 @@ const RequestForm = styled.form`
 const RequestTextArea = styled.input`
   width: 400px;
   height: 100px;
-  border-radius: 30px;
+  border-radius: 25px;
   border: 3px solid ${colors.primary};
   text-align: center;
   :focus {
@@ -81,20 +83,28 @@ const Cards = styled.div`
 `;
 
 const CardRow = styled.div`
-  width: 80%;
+  width: 85%;
   height: 100px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  background-color: #d9d9d9;
-  padding-left: 2rem;
+  background-color: #cc9767;
+  padding: 0 2rem;
+  word-break: keep-all;
 `;
 
 const BookTitle = styled.h1`
   font-size: 17px;
 `;
 
-const BookSummary = styled.p`
+const Description = styled.div`
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const User = styled.p`
   font-size: 14px;
 `;
 

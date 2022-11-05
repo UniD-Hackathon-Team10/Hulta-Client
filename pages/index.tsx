@@ -15,14 +15,24 @@ const Temp = Array(50)
   }));
 
 const Home = ({}: HomeProps) => {
-  const [category, setCategory] = useState<{ label: string; value: any }>(BOOK_CATEGORY[0]);
+  const [category, setCategory] = useState<{ label: string; value: any }>(
+    BOOK_CATEGORY[0]
+  );
 
   return (
     <Container>
-      <CategorySelector value={category} setValue={setCategory} options={BOOK_CATEGORY} />
+      <CategorySelector
+        value={category}
+        setValue={setCategory}
+        options={BOOK_CATEGORY}
+      />
       <DataContainer>
         {Temp.map((result) => (
-          <Card image={result.image} title={result.title} author={result.author} />
+          <Card
+            image={result.image}
+            title={result.title}
+            author={result.author}
+          />
         ))}
       </DataContainer>
     </Container>
@@ -32,13 +42,17 @@ const Home = ({}: HomeProps) => {
 export default Home;
 
 const Container = styled.div`
-  width: calc(100% - 40px);
-  margin: 0 auto;
+  width: 100%;
 `;
 
 const DataContainer = styled.div`
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 2rem;
+  display: flex;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  /* padding-bottom: 7rem; */
 `;

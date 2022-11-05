@@ -10,7 +10,11 @@ interface CategorySelectorProps {
   options: { label: string; value: any }[];
 }
 
-export default function CategorySelector({ value, setValue, options }: CategorySelectorProps) {
+export default function CategorySelector({
+  value,
+  setValue,
+  options,
+}: CategorySelectorProps) {
   const [open, setOpen] = useState(false);
 
   const onClickOption = useCallback(
@@ -22,22 +26,44 @@ export default function CategorySelector({ value, setValue, options }: CategoryS
   );
 
   return (
-    <Container>
-      <Label>카테고리</Label>
-      <Selector onClick={() => setOpen((prev) => !prev)}>
-        <p>{value.label}</p>
-        {open ? <ChevronUpIcon width={10} height={10} /> : <ChevronDownIcon width={10} height={10} />}
-      </Selector>
-      {open && (
-        <OptionContainer>
-          {options.map((opt) => (
-            <Option onClick={onClickOption(opt)}>{opt.label}</Option>
-          ))}
-        </OptionContainer>
-      )}
-    </Container>
+    <Wrapper>
+      <Container>
+        <Label>카테고리</Label>
+        <Selector onClick={() => setOpen((prev) => !prev)}>
+          <p
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {value.label}
+          </p>
+          {open ? (
+            <ChevronUpIcon width={10} height={10} />
+          ) : (
+            <ChevronDownIcon width={10} height={10} />
+          )}
+        </Selector>
+        {open && (
+          <OptionContainer>
+            {options.map((opt) => (
+              <Option onClick={onClickOption(opt)}>{opt.label}</Option>
+            ))}
+          </OptionContainer>
+        )}
+      </Container>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  position: fixed;
+  top: 4rem;
+  width: 100%;
+  background-color: #fbfbfb;
+  padding-left: 1rem;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -71,7 +97,7 @@ const OptionContainer = styled.ul`
   position: absolute;
   border: 1px solid black;
   border-radius: 4px;
-  top: 24px;
+  top: 40px;
   left: 40px;
   padding: 10px 20px;
 `;
