@@ -1,21 +1,34 @@
+import Card from "@components/Card";
 import styled from "@emotion/styled";
 import React, { LegacyRef, useRef, useState } from "react";
 import { colors } from "src/constants/colors";
 
 type Props = {};
 
+const Temp = Array(50)
+  .fill("")
+  .map((arr) => ({
+    image: "https://picsum.photos/200/300",
+    title: "테스트입니다",
+    author: "복돌복돌",
+  }));
+
 const Search = (props: Props) => {
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState(Temp);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <SearchContainer>
       <SearchBar placeholder="책 검색" ref={inputRef} />
+      <SearchTitle>검색 결과</SearchTitle>
       <SearchResult>
-        <h2>검색 결과</h2>
-        {results.map(() => (
-          <></>
+        {results.map((result) => (
+          <Card
+            image={result.image}
+            title={result.title}
+            author={result.author}
+          />
         ))}
       </SearchResult>
     </SearchContainer>
@@ -27,14 +40,18 @@ const SearchContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding-top: 2rem;
+`;
+
+const SearchTitle = styled.h1`
+  padding: 1rem 0;
+  width: 100%;
+  padding-left: 2rem;
 `;
 
 const SearchBar = styled.input`
   width: 90%;
   height: 4rem;
   border-radius: 2rem;
-  padding-left: 1rem;
   border-color: ${colors.primary};
   text-align: center;
   font-size: 1.2rem;
@@ -42,7 +59,12 @@ const SearchBar = styled.input`
 
 const SearchResult = styled.div`
   width: 90%;
-  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding-bottom: 7rem;
 `;
 
 export default Search;

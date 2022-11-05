@@ -13,14 +13,16 @@ const Header = (props: Props) => {
 };
 
 const Wrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
+  max-width: 450px;
   height: 4rem;
-  background: #ffffff;
+  background: #fbfbfb;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: auto;
 `;
 
 const Logo = styled.h1`
