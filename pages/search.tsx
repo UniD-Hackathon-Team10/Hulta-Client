@@ -29,9 +29,7 @@ const Search = (props: Props) => {
         endAdornment={<MagnifyingGlassIcon width={30} height={30} color={colors.primary} />}
         inputStyle={{ fontSize: "1.1rem" }}
         wrapperStyle={{
-          width: "90%",
           maxWidth: "450px",
-          margin: "auto",
           position: "fixed",
           backgroundColor: "white",
         }}

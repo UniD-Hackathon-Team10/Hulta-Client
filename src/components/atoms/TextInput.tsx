@@ -1,6 +1,11 @@
 import { colors } from "@constants/colors";
 import styled from "@emotion/styled";
-import { CSSProperties, DetailedHTMLProps, InputHTMLAttributes, ReactElement } from "react";
+import {
+  CSSProperties,
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  ReactElement,
+} from "react";
 
 interface TextInputProps {
   wrapperStyle?: CSSProperties;
@@ -15,7 +20,8 @@ export default function TextInput({
   error,
   endAdornment,
   ...rest
-}: TextInputProps & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) {
+}: TextInputProps &
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) {
   return (
     <div style={{ width: "100%" }}>
       <Container style={wrapperStyle}>
@@ -34,6 +40,7 @@ const Container = styled.div`
   overflow: hidden;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 4px 16px;
 `;
 
