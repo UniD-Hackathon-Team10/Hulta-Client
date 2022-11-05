@@ -19,8 +19,7 @@ interface MyAppProps extends AppProps {
 }
 
 function MyApp({ Component, ...rest }: MyAppProps) {
-  // const getLayout = Component.getLayout ?? ((page) => page);
-  const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
+  const getLayout = Component.getLayout ? Component.getLayout : (page: ReactNode) => <Layout>{page}</Layout>;
   const { store, props } = wrapper.useWrappedStore(rest);
 
   const [client] = useState(
