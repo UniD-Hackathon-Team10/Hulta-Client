@@ -42,6 +42,9 @@ const Input = styled.input`
   width: 100%;
   height: 48px;
   flex: 1;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const ErrorText = styled.p`

@@ -22,9 +22,12 @@ const Container = styled.div`
   height: 200px;
   display: flex;
   flex-direction: column;
+  row-gap: 6px;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+  border-radius: 2px;
+`;
 
 const Title = styled.h1`
   font-weight: 700;
