@@ -45,7 +45,7 @@ const SearchContainer = styled.div`
 const SearchTitle = styled.h1`
   padding: 1rem 0;
   width: 100%;
-  padding-left: 2rem;
+  text-align: center;
 `;
 
 const SearchBar = styled.input`
@@ -58,7 +58,7 @@ const SearchBar = styled.input`
 `;
 
 const SearchResult = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
