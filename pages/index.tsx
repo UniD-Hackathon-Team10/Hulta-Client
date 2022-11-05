@@ -6,12 +6,14 @@ import { useState } from "react";
 
 interface HomeProps {}
 
-const Temp = Array(50).map((_, i) => ({
-  image: "https://picsum.photos/200/300",
-  title: "테스트입니다",
-  author: "복돌복돌",
-  id: i,
-}));
+const Temp = Array(50)
+  .fill("")
+  .map((_, i) => ({
+    image: "https://picsum.photos/200/300",
+    title: "테스트입니다",
+    author: "복돌복돌",
+    id: i,
+  }));
 
 const Home = ({}: HomeProps) => {
   const [category, setCategory] = useState<{ label: string; value: any }>(

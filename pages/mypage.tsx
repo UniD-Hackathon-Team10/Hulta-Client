@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
 import { colors } from "src/constants/colors";
 import Card from "@components/Card";
+import Image from "next/image";
 
 enum TAB {
   wrote,
@@ -24,7 +26,7 @@ const TempWrote = Array(50)
 const TempLiked = Array(50)
   .fill("")
   .map((arr, i) => ({
-    image: "https://picsum.photos/200/300",
+    image: "https://picsum.photos/300/300",
     title: "좋은책",
     author: "복돌복돌",
     id: i,
@@ -36,8 +38,35 @@ const MyPage = () => {
   return (
     <Container>
       <MyPageHeader>
-        <UserName>{name}</UserName>
-        <UserEmail>{email}</UserEmail>
+        <div
+          style={{
+            width: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {/* <UserCircleIcon width={140} /> */}
+          <img
+            width={130}
+            height={130}
+            src="https://picsum.photos/300/300"
+            style={{ borderRadius: 150 }}
+          />
+        </div>
+        <div
+          style={{
+            width: "50%",
+            display: "flex",
+            alignItems: "start",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: "1rem",
+          }}
+        >
+          <UserName>{name}</UserName>
+          <UserEmail>{email}</UserEmail>
+        </div>
       </MyPageHeader>
       <MyPageContent>
         <Categories>
@@ -94,16 +123,16 @@ const MyPageHeader = styled.div`
   max-width: 450px;
   height: 150px;
   display: flex;
-  flex-direction: column;
-  padding-left: 3rem;
+  /* flex-direction: column; */
+  /* padding-left: 3rem; */
   align-items: left;
-  justify-content: center;
+  justify-content: space-between;
   gap: 1rem;
 `;
 
 const UserName = styled.h1`
   font-weight: 700;
-  font-size: 20px;
+  font-size: 30px;
   line-height: 30px;
   display: flex;
   align-items: center;
@@ -112,7 +141,7 @@ const UserName = styled.h1`
 `;
 
 const UserEmail = styled.p`
-  font-size: 10px;
+  font-size: 14px;
   color: #a3a1a1;
 `;
 
