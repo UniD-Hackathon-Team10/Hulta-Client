@@ -2,8 +2,8 @@ import TextInput from "@components/atoms/TextInput";
 import Card from "@components/Card";
 import styled from "@emotion/styled";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import React, { LegacyRef, useRef, useState } from "react";
-import { colors } from "src/constants/colors";
+import React, { useRef, useState } from "react";
+import { colors } from "@constants/colors";
 
 type Props = {};
 
@@ -26,9 +26,7 @@ const Search = (props: Props) => {
       <TextInput
         placeholder="책 검색"
         ref={inputRef}
-        endAdornment={
-          <MagnifyingGlassIcon width={30} height={30} color={colors.primary} />
-        }
+        endAdornment={<MagnifyingGlassIcon width={30} height={30} color={colors.primary} />}
         inputStyle={{ fontSize: "1.1rem" }}
         wrapperStyle={{
           width: "90%",
@@ -41,11 +39,7 @@ const Search = (props: Props) => {
       <SearchTitle>검색 결과</SearchTitle>
       <SearchResult>
         {results.map((result) => (
-          <Card
-            image={result.image}
-            title={result.title}
-            author={result.author}
-          />
+          <Card image={result.image} title={result.title} author={result.author} />
         ))}
       </SearchResult>
     </SearchContainer>
