@@ -9,4 +9,4 @@ const Home: NextPageWithLayout<HomeProps> = ({}: HomeProps) => {
 
 export default Home;
 
-Home.getLayout = (page) => <Layout>{page}</Layout>;
+// Home.getLayout = (page) => <Layout>{page}</Layout>;
