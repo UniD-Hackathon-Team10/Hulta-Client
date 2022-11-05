@@ -5,7 +5,9 @@ import type { AppProps } from "next/app";
 import { NextPage } from "next";
 import { ReactElement, ReactNode, useState } from "react";
 import { ToastContainer } from "react-toastify";
-import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
+import Layout from "@components/Layout";
 
 //참고: https://nextjs.org/docs/basic-features/layouts#with-typescript
 export type NextPageWithLayout<T> = NextPage<T> & {
@@ -16,8 +18,9 @@ interface MyAppProps extends AppProps {
   Component: NextPageWithLayout<any>;
 }
 
-function MyApp({ Component, pageProps }: MyAppProps) {
-  const getLayout = Component.getLayout ?? ((page) => page);
+function MyApp({ Component, ...rest }: MyAppProps) {
+  const getLayout = Component.getLayout ? Component.getLayout : (page: ReactNode) => <Layout>{page}</Layout>;
+  const { store, props } = wrapper.useWrappedStore(rest);
 
   const [client] = useState(
     () =>
@@ -33,11 +36,13 @@ function MyApp({ Component, pageProps }: MyAppProps) {
   return (
     <>
       <QueryClientProvider client={client}>
-        <ToastContainer position="bottom-center" autoClose={3000} />
-        {getLayout(<Component {...pageProps} />)}
+        <Provider store={store}>
+          <ToastContainer position="bottom-center" autoClose={3000} />
+          {getLayout(<Component {...props.pageProps} />)}
+        </Provider>
       </QueryClientProvider>
     </>
   );
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;
