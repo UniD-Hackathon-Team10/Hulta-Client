@@ -16,7 +16,7 @@ const TempWrote = Array(50)
   .fill("")
   .map((arr) => ({
     image: "https://picsum.photos/200/301",
-    title: "테스트입니다",
+    title: "전공책",
     author: "복돌복돌",
   }));
 
@@ -24,7 +24,7 @@ const TempLiked = Array(50)
   .fill("")
   .map((arr) => ({
     image: "https://picsum.photos/200/300",
-    title: "테스트입니다",
+    title: "좋은책",
     author: "복돌복돌",
   }));
 
@@ -155,9 +155,10 @@ const Cards = styled.div`
   align-items: center;
   align-content: flex-start;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
   flex-wrap: wrap;
   margin-top: 2rem;
+  padding-bottom: 7rem;
 `;
 
 export default MyPage;
