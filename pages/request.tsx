@@ -1,6 +1,6 @@
 import { colors } from "@constants/colors";
 import styled from "@emotion/styled";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "@store/configureStore";
 
@@ -26,17 +26,22 @@ const Request = (props: Props) => {
       ])
     );
     inputRef.current!.value = "";
+    getData();
   };
 
-  useEffect(() => {
+  const getData = useCallback(async () => {
     const data = localStorage.getItem("request");
     console.log(data);
     if (!data) {
       setData([]);
       return;
     }
-    setData(JSON.parse(data));
-  });
+    setData(JSON.parse(data).reverse());
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   return (
     <motion.div

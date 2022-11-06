@@ -20,7 +20,7 @@ const Home = ({}: HomeProps) => {
         },
       } = await axiosInstance.get(`/api/v1/article${query}`);
       console.log(posts);
-      setData(posts);
+      setData(posts.reverse());
     })();
   }, [category]);
 
