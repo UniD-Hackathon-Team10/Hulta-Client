@@ -31,7 +31,6 @@ const Search = (props: Props) => {
 
   return (
     <SearchContainer>
-      {/* <SearchBar placeholder="책 검색" ref={inputRef} /> */}
       <TextInput
         value={searchWord}
         onChange={(e) => setSearchWord(e.target.value)}
@@ -39,14 +38,15 @@ const Search = (props: Props) => {
         endAdornment={<MagnifyingGlassIcon width={30} height={30} color={colors.primary} />}
         inputStyle={{ fontSize: "1.1rem" }}
         wrapperStyle={{
-          maxWidth: "450px",
+          margin: "0 20px",
+          width: "calc(100% - 40px)",
           position: "fixed",
           backgroundColor: "white",
         }}
       />
       <SearchTitle>검색 결과</SearchTitle>
       <SearchResult>
-        {results.map((result) => (
+        {results.reverse().map((result) => (
           <Card image={result.bookThumbnail} title={result.bookTitle} author={result.nickname} id={result.articleNo} />
         ))}
       </SearchResult>
